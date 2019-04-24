@@ -3,6 +3,9 @@
 #########################################
 
 
+import itertools
+
+
 class A(object):
     pass
 
@@ -148,3 +151,61 @@ try:
     raise myException()
 except myException:
     print("hi")
+
+########################
+#  iterators
+########################
+
+alist = [1, 2, 3, 4]
+aiter = iter(alist)
+print(aiter)
+
+
+a = [x for x in range(10)]
+print(a)
+b = itertools.accumulate(a)
+b = list(b)
+print(b)
+
+print(list(itertools.combinations('abcd', 3)))
+print(list(itertools.combinations_with_replacement('abcd', 3)))
+print(list(itertools.permutations(['a', 'b', 'c'])))
+print(list(itertools.dropwhile(lambda x: x < 4, a)))
+print(list(itertools.filterfalse(lambda x: x < 4, a)))
+print(list(itertools.product('abc', 'xy')))
+
+#########################
+# generators
+#########################
+
+
+def doGenerate1():
+    while True:
+        yield 1
+
+
+print(doGenerate1())
+print(next(doGenerate1()))
+
+def doGenerate2():
+    alist = range(3)
+    for i in alist:
+        yield i*i
+
+
+gen2 = doGenerate2()
+gen22 = doGenerate2()
+gen222 = doGenerate2()
+for i in gen2:
+    print(i)
+
+print(next(gen22))
+print(next(gen22))
+print(next(gen22))
+print(list(gen222))
+print(list(gen222))
+
+
+##########################
+# decorate
+##########################
