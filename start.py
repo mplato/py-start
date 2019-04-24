@@ -1,6 +1,8 @@
 #########################################
 #  OBJECTS
 #########################################
+
+
 class A(object):
     pass
 
@@ -72,5 +74,77 @@ print(f(777, 111))
 
 
 ##################################
-#  RECURSION
+#  Inheritance
 ##################################
+
+class G(object):
+    gG = 1234
+
+
+class H(G):
+    hH = 4321
+
+
+g = G()
+h = H()
+
+print(g.gG, " ", h.gG, " ", h.hH)
+
+
+class I(object):
+    def __init__(self):
+        a = 4
+        b = 5
+
+
+class J(I):
+    def __init__(self):
+        aa = 44
+
+
+i = I()
+j = J()
+print(i.__dict__)
+
+
+##############################
+# Exceptions
+##############################
+
+alist = []
+
+
+def alistAdd(add):
+    try:
+        alist.append(int(add))
+    except ValueError:
+        print('err')
+
+
+alistAdd('stringhere')
+
+
+try:
+    1/0
+except (ValueError, TypeError):
+    print('value error')
+except ZeroDivisionError:
+    print('zero devision')
+except ArithmeticError:
+    print('arithmetic error')
+except Exception:
+    print('exception')
+else:
+    print('all good')
+finally:
+    print('complete')
+
+
+class myException(Exception):
+    print('My Exception')
+
+
+try:
+    raise myException()
+except myException:
+    print("hi")
