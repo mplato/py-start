@@ -277,24 +277,41 @@ def paragraph(func):
         print("</p")
     return inner
 
+
 @paragraph
 def hello(text='hi there'):
     print("hello ", text)
 
+
 hello()
+
 
 def tag(tagname='p'):
     def decorator(func):
         def inner(text):
-            print('<%s>'%tagname)
+            print('<%s>' % tagname)
             func(text)
-            print('</%s>'%tagname)
+            print('</%s>' % tagname)
         return inner
     return decorator
+
 
 @tag('div')
 @tag('p')
 def hello2(text):
     print("text here")
 
+
 hello2("py")
+
+
+###################################
+# Metaclass
+###################################
+m = type('M', (object,), {'x': 5, 'y': 6})
+print(m.x, m.y)
+
+m1 = type('M1',(),{'text':'Py'})
+m2 = type('M2',(m1,),{})
+print(m1)
+print(m1.text)
