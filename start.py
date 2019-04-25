@@ -187,6 +187,7 @@ def doGenerate1():
 print(doGenerate1())
 print(next(doGenerate1()))
 
+
 def doGenerate2():
     alist = range(3)
     for i in alist:
@@ -209,3 +210,91 @@ print(list(gen222))
 ##########################
 # decorate
 ##########################
+
+class DA(object):
+    x = 1
+
+    @classmethod
+    def get_x(cls):
+        print(cls.x)
+
+
+da = DA()
+print(da.x)
+
+
+class DB(object):
+    @staticmethod
+    def get_x():
+        print("staticmethod")
+
+
+db = DB()
+db.get_x()
+
+
+class DC(object):
+    def __init__(self, t):
+        print("pre-func")
+        t()
+        print("post-func")
+
+    def __call__(self):
+        print('call')
+
+
+@DC
+def func1():
+    print("function")
+
+
+func1()
+
+
+def DD(i='i', j='j'):
+    def internal(func):
+        def ininternal(*args, **kwargs):
+            print(i)
+            result = func(*args, **kwargs)
+            print(j)
+            return result
+        return ininternal
+    return internal
+
+
+@DD('ett', 'tva')
+def de(a=5, b=2):
+    return a+b
+
+
+de()
+
+
+def paragraph(func):
+    def inner(*args, **kwargs):
+        print("<p>")
+        func(*args, **kwargs)
+        print("</p")
+    return inner
+
+@paragraph
+def hello(text='hi there'):
+    print("hello ", text)
+
+hello()
+
+def tag(tagname='p'):
+    def decorator(func):
+        def inner(text):
+            print('<%s>'%tagname)
+            func(text)
+            print('</%s>'%tagname)
+        return inner
+    return decorator
+
+@tag('div')
+@tag('p')
+def hello2(text):
+    print("text here")
+
+hello2("py")
